@@ -13,7 +13,7 @@ Thomas_Header:
 	smpsHeaderPSG       Thomas_PSG1,	$00, $00, $00, $00
 	smpsHeaderPSG       Thomas_PSG2,	$00, $00, $00, $00
 	smpsHeaderPSG       Thomas_PSG3,	$00, $00, $00, $00
-	dc.b		$00,	$00,	$00,	$00,	_smpsStop
+	dc.b		$00,	$00,	$00,	$00
 
 ; FM1 Data
 Thomas_FM1:

@@ -13,7 +13,7 @@ Starman_Header:
 	smpsHeaderPSG       Starman_PSG1,	$00, $00, $00, $00
 	smpsHeaderPSG       Starman_PSG2,	$00, $00, $00, $00
 	smpsHeaderPSG       Starman_PSG3,	$00, $00, $00, $00
-	dc.b		$00,	$00,	$00,	$00,	_smpsStop
+	dc.b		$00,	$00,	$00,	$00
 
 ; PSG1 Data
 Starman_PSG1:

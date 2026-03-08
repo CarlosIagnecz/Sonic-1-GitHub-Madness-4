@@ -15,7 +15,7 @@ Peppa_Header:
 	smpsHeaderPSG       Peppa_PSG1,	$00, $00, $00, $00
 	smpsHeaderPSG       Peppa_PSG2,	$00, $00, $00, $00
 	smpsHeaderPSG       Peppa_PSG3,	$00, $00, $00, $00
-	dc.b		$00,	$00,	$00,	$00,	_smpsStop
+	dc.b		$00,	$00,	$00,	$00
 
 ; DAC Data
 Peppa_DAC:
