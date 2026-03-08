@@ -140,6 +140,7 @@ ptr_mus93:	dc.l Music93
 ptr_mus_newbark:	dc.l Music_NewBark
 ptr_mus95:	dc.l Music95
 ptr_mus96:	dc.l Music96
+ptr_mus97:	dc.l Music97
 ptr_musend
 ; ---------------------------------------------------------------------------
 ; Priority of sound. New music or SFX must have a priority higher than or equal
@@ -2749,6 +2750,8 @@ Music_NewBark:	include "sound/music/DaxKatter/Mus - New Bark Town.asm"
 Music95:	include "sound/music/CNTracks/RE Mansion.asm"
 		even
 Music96:	include "sound/music/CNTracks/Jeopardy.asm"
+		even
+Music97:	include "sound/music/TG2000Tracks/1UPEmerald.asm"
 		even
 ; ---------------------------------------------------------------------------
 ; Sound effect pointers

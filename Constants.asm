@@ -76,6 +76,8 @@ id_Continue:	equ ptr_GM_Cont-GameModeArray	; $14
 id_Ending:	equ ptr_GM_Ending-GameModeArray	; $18
 id_Credits:	equ ptr_GM_Credits-GameModeArray; $1C
 id_ColdBrew:	equ ptr_GM_ColdBrew-GameModeArray; $20
+id_SegaEU:	equ ptr_GM_SegaEU-GameModeArray; $24
+
 
 ; Levels
 id_GHZ:		equ 0
@@ -220,6 +222,7 @@ bgm_Credits:	equ ((ptr_mus91-MusicIndex)/4)+bgm__First
 bgm_Drowning:	equ ((ptr_mus92-MusicIndex)/4)+bgm__First
 bgm_Emerald:	equ ((ptr_mus93-MusicIndex)/4)+bgm__First
 bgm_NewBarkTown:	equ ((ptr_mus_newbark-MusicIndex)/4)+bgm__First
+bgm_EuroSega:	equ ((ptr_mus97-MusicIndex)/4)+bgm__First
 bgm__Last:	equ ((ptr_musend-MusicIndex-4)/4)+bgm__First
 
 ; Sound effects
