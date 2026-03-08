@@ -346,7 +346,7 @@ KillSonic:
 		move.b	#id_Death,obAnim(a0)
 		bset	#7,obGfx(a0)
 
-		move.b	#$8F, d0
+		move.b	#dTrevor, d0
 		jmp	MegaPCM_PlaySample
 		
 	if FixBugs
