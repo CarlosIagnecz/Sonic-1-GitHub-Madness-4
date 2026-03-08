@@ -13,7 +13,7 @@ SomariInv_Header:
 	smpsHeaderPSG       SomariInv_PSG1,	$00, $00, $00, $00
 	smpsHeaderPSG       SomariInv_PSG2,	$00, $00, $00, $00
 	smpsHeaderPSG       SomariInv_PSG3,	$00, $00, $00, $00
-	dc.b		$00,	$00,	$00,	$00,	_smpsStop
+	dc.b		$00,	$00,	$00,	$00
 
 ; PSG1 Data
 SomariInv_PSG1:

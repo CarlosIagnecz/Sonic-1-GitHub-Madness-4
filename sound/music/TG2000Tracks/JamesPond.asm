@@ -13,7 +13,7 @@ JamesPond_Header:
 	smpsHeaderPSG       JamesPond_PSG1,	$00, $00, $00, $00
 	smpsHeaderPSG       JamesPond_PSG2,	$00, $00, $00, $00
 	smpsHeaderPSG       JamesPond_PSG3,	$00, $00, $00, $00
-	dc.b		$00,	$00,	$00,	$00,	_smpsStop
+	dc.b		$00,	$00,	$00,	$00
 
 ; FM5 Data
 JamesPond_FM5:

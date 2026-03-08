@@ -13,7 +13,7 @@ Minuscule_Header:
 	smpsHeaderPSG       Minuscule_PSG1,	$00, $00, $00, $00
 	smpsHeaderPSG       Minuscule_PSG2,	$00, $00, $00, $00
 	smpsHeaderPSG       Minuscule_PSG3,	$00, $00, $00, $00
-	dc.b		$00,	$00,	$00,	$00,	_smpsStop
+	dc.b		$00,	$00,	$00,	$00
 
 ; FM1 Data
 Minuscule_FM1:

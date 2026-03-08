@@ -13,7 +13,7 @@ Spoopy_Header:
 	smpsHeaderPSG       Spoopy_PSG1,	$00, $00, $00, $00
 	smpsHeaderPSG       Spoopy_PSG2,	$00, $00, $00, $00
 	smpsHeaderPSG       Spoopy_PSG3,	$00, $00, $00, $00
-	dc.b		$00,	$00,	$00,	$00,	_smpsStop
+	dc.b		$00,	$00,	$00,	$00
 
 ; FM1 Data
 Spoopy_FM1:

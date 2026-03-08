@@ -13,7 +13,7 @@ MayoDed_Header:
 	smpsHeaderPSG       MayoDed_PSG1,	$00, $00, $00, $00
 	smpsHeaderPSG       MayoDed_PSG2,	$00, $00, $00, $00
 	smpsHeaderPSG       MayoDed_PSG3,	$00, $00, $00, $00
-	dc.b		$00,	$00,	$00,	$00,	_smpsStop
+	dc.b		$00,	$00,	$00,	$00
 
 ; PSG1 Data
 MayoDed_PSG1:

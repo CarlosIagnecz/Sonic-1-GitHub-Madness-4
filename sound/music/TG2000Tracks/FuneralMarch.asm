@@ -15,7 +15,7 @@ FuneralMarch_Header:
 	smpsHeaderPSG       FuneralMarch_PSG1,	$00, $00, $00, $00
 	smpsHeaderPSG       FuneralMarch_PSG2,	$00, $00, $00, $00
 	smpsHeaderPSG       FuneralMarch_PSG3,	$00, $00, $00, $00
-	dc.b		$00,	$00,	$00,	$00,	_smpsStop
+	dc.b		$00,	$00,	$00,	$00
 
 ; DAC Data
 FuneralMarch_DAC:

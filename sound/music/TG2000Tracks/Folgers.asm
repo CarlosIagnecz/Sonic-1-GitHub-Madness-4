@@ -13,7 +13,7 @@ Folgers_Header:
 	smpsHeaderPSG       Folgers_PSG1,	$00, $00, $00, $00
 	smpsHeaderPSG       Folgers_PSG2,	$00, $00, $00, $00
 	smpsHeaderPSG       Folgers_PSG3,	$00, $00, $00, $00
-	dc.b		$00,	$00,	$00,	$00,	_smpsStop
+	dc.b		$00,	$00,	$00,	$00
 
 ; DAC Data
 Folgers_DAC:
