@@ -1,135 +1,156 @@
-Mus88_Extra_Life_Header:
-	smpsHeaderStartSong 1
-	smpsHeaderVoice     Mus88_Extra_Life_Voices
-	smpsHeaderChan      $06, $03
-	smpsHeaderTempo     $02, $05
+BGM_1UP_Header:
+	smpsHeaderStartSong	1
+	smpsHeaderVoice		BGM_1UP_Voices
+	smpsHeaderChan		$06, $03
+	smpsHeaderTempo		$02, $07
 
-	smpsHeaderDAC       Mus88_Extra_Life_DAC
-	smpsHeaderFM        Mus88_Extra_Life_FM1,	$E8, $10
-	smpsHeaderFM        Mus88_Extra_Life_FM2,	$E8, $10
-	smpsHeaderFM        Mus88_Extra_Life_FM3,	$E8, $10
-	smpsHeaderFM        Mus88_Extra_Life_FM4,	$E8, $10
-	smpsHeaderFM        Mus88_Extra_Life_FM5,	$E8, $10
-	smpsHeaderPSG       Mus88_Extra_Life_PSG1,	$D0, $06, $00, fTone_05
-	smpsHeaderPSG       Mus88_Extra_Life_PSG2,	$DC, $06, $00, fTone_05
-	smpsHeaderPSG       Mus88_Extra_Life_PSG3,	$DC, $00, $00, fTone_04
+	smpsHeaderDAC	BGM_1UP_DAC
+	smpsHeaderFM	BGM_1UP_FM1,	$00, $08
+	smpsHeaderFM	BGM_1UP_FM2,	$00, $0A
+	smpsHeaderFM	BGM_1UP_FM3,	$00, $18
+	smpsHeaderFM	BGM_1UP_FM4,	$00, $18
+	smpsHeaderFM	BGM_1UP_FM5,	$00, $18
+	smpsHeaderPSG	BGM_1UP_PSG1,	$F4, $00, $00, uptone_01
+	smpsHeaderPSG	BGM_1UP_PSG2,	$F4, $06, $00, uptone_01
+	smpsHeaderPSG	BGM_1UP_PSG3,	$F4, $00, $00, uptone_03
 
-; FM4 Data
-Mus88_Extra_Life_FM4:
-	smpsAlterNote       $03
-	smpsPan             panRight, $00
-	smpsJump            Mus88_Extra_Life_Jump01
+	; Loop Pattern :  FFFFFFFF
+	; End Pattern :  01
+	; End Place :  42
 
-; FM1 Data
-Mus88_Extra_Life_FM1:
-	smpsPan             panLeft, $00
+BGM_1UP_FM5:
+	smpsAlterNote		$FA
+	smpsPan		panLeft, $00
+	dc.b	nRst, $04
 
-Mus88_Extra_Life_Jump01:
-	smpsSetvoice        $00
-	smpsNoteFill        $06
-	dc.b	nE7, $06, $03, $03, $06, $06
-	smpsNoteFill        $00
-	dc.b	nFs7, $09, nD7, nCs7, $06, nE7, $18
+BGM_1UP_FM1:
+	smpsSetvoice		$00
+	dc.b	nC4, $03, nD4
+	dc.b	nE4, $0C, nG4, nF4, $06, nE4, nD4, $03, nRst, nF4, $06, nE4, $12, nC4, $06
+
+BGM_1UP_FM1_Loop01:
+	dc.b	nC4, $06, nRst, $02
+	smpsAlterVol	$10
+	smpsLoop	$00, $03, BGM_1UP_FM1_Loop01
 	smpsStop
 
-; FM2 Data
-Mus88_Extra_Life_FM2:
-	smpsSetvoice        $01
-	smpsNoteFill        $06
-	smpsNop             $01
-	dc.b	nCs7, $06, $03, $03, $06, $06
-	smpsNoteFill        $00
-	dc.b	nD7, $09, nB6, nA6, $06, nCs7, $18
-	smpsNop             $01
+BGM_1UP_FM2:
+	smpsSetvoice	$03
+	dc.b	nRst, $06, nC3, $03, nRst, nC3, nRst, $09, nC3, $03, $09, $03, nRst, $09, nG3, $03
+	dc.b	nRst, nC3, $18, $06
 	smpsStop
 
-; FM5 Data
-Mus88_Extra_Life_FM5:
-	smpsAlterNote       $03
-	smpsPan             panRight, $00
-	smpsJump            Mus88_Extra_Life_Jump00
-
-; FM3 Data
-Mus88_Extra_Life_FM3:
-	smpsPan             panLeft, $00
-
-Mus88_Extra_Life_Jump00:
-	smpsSetvoice        $02
-	dc.b	nA4, $0C, nRst, $06, nA4, nG4, nRst, $03, nG4, $06, nRst, $03
-	dc.b	nG4, $06, nA4, $18
+BGM_1UP_FM3:
+	smpsSetvoice	$02
+	smpsPan		panLeft, $00
+	dc.b	nRst, $06, nE4, $03, nRst, nC4, nRst, nG4, $06, nF4, $0C, nG4, $03, nRst
+	dc.b	nB4, $06, nC5, $1E, $06
 	smpsStop
 
-; PSG1 Data
-Mus88_Extra_Life_PSG1:
-	smpsNoteFill        $06
-	dc.b	nCs7, $06, $03, $03, $06, $06
-	smpsNoteFill        $00
-	dc.b	nD7, $09, nB6, nA6, $06, nCs7, $18
-
-; PSG2 Data
-Mus88_Extra_Life_PSG2:
-; PSG3 Data
-Mus88_Extra_Life_PSG3:
+BGM_1UP_FM4:
+	smpsSetvoice	$02
+	smpsPan		panRight, $00
+	dc.b	nRst, $06, nC4, $03, nRst, nG3, nRst, nE4, $06, nD4, $0C, nE4, $03, nRst
+	dc.b	nF4, $06, nG4, $1E, $06
 	smpsStop
 
-; DAC Data
-Mus88_Extra_Life_DAC:
-	dc.b	dHiTimpani, $12, $06, dVLowTimpani, $09, $09, $06, dHiTimpani, $06, dLowTimpani, dHiTimpani, dLowTimpani
-	dc.b	dHiTimpani, $0C
+BGM_1UP_PSG2:
+	smpsAlterNote		$02
+	dc.b	nRst, $02
+
+BGM_1UP_PSG1:
+	dc.b	nRst, $36
+	dc.b	nC2, $02, nE2, nG2, nC3, nE3, nG3, nC4, nE3, nG3, nC4, $04
+	smpsStop
+
+BGM_1UP_PSG3:
+	smpsPSGform		$E7
+	dc.b	nRst, $06
+	smpsNoteFill		$05
+	dc.b	nG6, $06, $02, $02, $02, $06, $06, $06, $0C, $06
+	smpsPSGvoice		uptone_02
+	smpsNoteFill		$00
+	smpsPSGAlterVol		$02
+	dc.b	$06
+	smpsPSGvoice		uptone_03
+	smpsNoteFill		$05
+	smpsPSGAlterVol		$FE
+	dc.b	$02, $02, $02, $06, $02, $02, $02, $03
+	smpsStop
+
+BGM_1UP_DAC:
+	dc.b	dKick, $03, $03, dKick, $12, dKick, $06
+	dc.b	dSnare, dKick, $0C, $06, dHiTimpani, dLowTimpani
+	dc.b	dHiTimpani, dLowTimpani, dHiTimpani, $0C, nRst, $12
 	smpsFade
+	smpsStop
 
-Mus88_Extra_Life_Voices:
-;	Voice $00
-;	$3A
-;	$01, $07, $01, $01, 	$8E, $8E, $8D, $53, 	$0E, $0E, $0E, $03
-;	$00, $00, $00, $00, 	$1F, $FF, $1F, $0F, 	$18, $4E, $16, $80
-	smpsVcAlgorithm     $02
-	smpsVcFeedback      $07
-	smpsVcUnusedBits    $00
-	smpsVcDetune        $00, $00, $00, $00
-	smpsVcCoarseFreq    $01, $01, $07, $01
-	smpsVcRateScale     $01, $02, $02, $02
-	smpsVcAttackRate    $13, $0D, $0E, $0E
-	smpsVcAmpMod        $00, $00, $00, $00
-	smpsVcDecayRate1    $03, $0E, $0E, $0E
-	smpsVcDecayRate2    $00, $00, $00, $00
-	smpsVcDecayLevel    $00, $01, $0F, $01
-	smpsVcReleaseRate   $0F, $0F, $0F, $0F
-	smpsVcTotalLevel    $00, $16, $4E, $18
+BGM_1UP_Voices:
+;	FM Voice 00 -> 00: Lead
+	smpsVcAlgorithm		$04
+	smpsVcFeedback		$07
+	smpsVcDetune		$07, $03, $03, $07
+	smpsVcCoarseFreq	$02, $06, $08, $0C
+	smpsVcRateScale		$00, $01, $01, $03
+	smpsVcAttackRate	$1F, $1F, $1F, $1F
+	smpsVcAmpMod		$00, $00, $00, $00
+	smpsVcDecayRate1	$0F, $12, $11, $0F
+	smpsVcDecayRate2	$05, $0A, $0D, $01
+	smpsVcDecayLevel	$03, $01, $03, $01
+	smpsVcReleaseRate	$0C, $03, $0C, $03
+	smpsVcTotalLevel	$03, $1C, $00, $1C
 
-;	Voice $01
-;	$3A
-;	$01, $07, $01, $01, 	$8E, $8E, $8D, $53, 	$0E, $0E, $0E, $03
-;	$00, $00, $00, $00, 	$1F, $FF, $1F, $0F, 	$18, $28, $27, $80
-	smpsVcAlgorithm     $02
-	smpsVcFeedback      $07
-	smpsVcUnusedBits    $00
-	smpsVcDetune        $00, $00, $00, $00
-	smpsVcCoarseFreq    $01, $01, $07, $01
-	smpsVcRateScale     $01, $02, $02, $02
-	smpsVcAttackRate    $13, $0D, $0E, $0E
-	smpsVcAmpMod        $00, $00, $00, $00
-	smpsVcDecayRate1    $03, $0E, $0E, $0E
-	smpsVcDecayRate2    $00, $00, $00, $00
-	smpsVcDecayLevel    $00, $01, $0F, $01
-	smpsVcReleaseRate   $0F, $0F, $0F, $0F
-	smpsVcTotalLevel    $00, $27, $28, $18
+;	FM Voice 01 -> 01: Orch Snare
+	smpsVcAlgorithm		$04
+	smpsVcFeedback		$07
+	smpsVcDetune		$00, $00, $00, $07
+	smpsVcCoarseFreq	$01, $03, $01, $01
+	smpsVcRateScale		$01, $03, $00, $00
+	smpsVcAttackRate	$1F, $1F, $1F, $1F
+	smpsVcAmpMod		$00, $00, $00, $00
+	smpsVcDecayRate1	$12, $10, $11, $0C
+	smpsVcDecayRate2	$14, $17, $12, $19
+	smpsVcDecayLevel	$09, $05, $0F, $0A
+	smpsVcReleaseRate	$05, $06, $08, $06
+	smpsVcTotalLevel	$00, $0F, $00, $02
 
-;	Voice $02
-;	$3A
-;	$01, $07, $01, $01, 	$8E, $8E, $8D, $53, 	$0E, $0E, $0E, $03
-;	$00, $00, $00, $07, 	$1F, $FF, $1F, $0F, 	$18, $28, $27, $80
-	smpsVcAlgorithm     $02
-	smpsVcFeedback      $07
-	smpsVcUnusedBits    $00
-	smpsVcDetune        $00, $00, $00, $00
-	smpsVcCoarseFreq    $01, $01, $07, $01
-	smpsVcRateScale     $01, $02, $02, $02
-	smpsVcAttackRate    $13, $0D, $0E, $0E
-	smpsVcAmpMod        $00, $00, $00, $00
-	smpsVcDecayRate1    $03, $0E, $0E, $0E
-	smpsVcDecayRate2    $07, $00, $00, $00
-	smpsVcDecayLevel    $00, $01, $0F, $01
-	smpsVcReleaseRate   $0F, $0F, $0F, $0F
-	smpsVcTotalLevel    $00, $27, $28, $18
+;	FM Voice 02 -> 02: Trumpet
+	smpsVcAlgorithm		$05
+	smpsVcFeedback		$07
+	smpsVcDetune		$06, $07, $01, $00
+	smpsVcCoarseFreq	$01, $02, $00, $01
+	smpsVcRateScale		$00, $01, $00, $00
+	smpsVcAttackRate	$14, $13, $14, $0F
+	smpsVcAmpMod		$00, $00, $00, $00
+	smpsVcDecayRate1	$03, $06, $06, $04
+	smpsVcDecayRate2	$00, $00, $0F, $00
+	smpsVcDecayLevel	$01, $05, $03, $01
+	smpsVcReleaseRate	$0F, $0F, $0F, $0F
+	smpsVcTotalLevel	$00, $00, $00, $1A
+
+;	FM Voice 03 -> 03: Bass
+	smpsVcAlgorithm		$04
+	smpsVcFeedback		$05
+	smpsVcDetune		$00, $07, $07, $00
+	smpsVcCoarseFreq	$00, $00, $01, $01
+	smpsVcRateScale		$03, $03, $03, $03
+	smpsVcAttackRate	$1C, $1C, $1F, $1E
+	smpsVcAmpMod		$00, $00, $00, $00
+	smpsVcDecayRate1	$05, $04, $07, $06
+	smpsVcDecayRate2	$08, $01, $08, $08
+	smpsVcDecayLevel	$0B, $05, $0B, $0B
+	smpsVcReleaseRate	$04, $04, $04, $04
+	smpsVcTotalLevel	$00, $16, $07, $17
+
+;	PSG Voice 04 -> kTone_0B
+;	macros:
+;		vol: 15 15 15 15 14 14 14 14 13 13 13 13 12 12 12 12 11 11 11 11 10 10 10 10 9 9 9 9 8 8 8 8 7 7 7 7 6 6 6 6 5 5 5 5 0
+
+;	PSG Voice 05 -> kTone_04
+;	macros:
+;		vol: 15 15 13 12 11 11 10 10 10 9 9 0
+
+;	PSG Voice 06 -> kTone_0E
+;	macros:
+;		vol: 15 14 13 11 9 7 5 3 1 0
 
