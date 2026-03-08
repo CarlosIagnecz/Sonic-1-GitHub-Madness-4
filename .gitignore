@@ -12,3 +12,4 @@ sonic.p
 *.gen
 s1built.prev.bin
 s1built.bin
+sonic.debug.lst
