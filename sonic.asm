@@ -842,6 +842,7 @@ Init_MegaPCM
 		jsr	MegaPCM_LoadSampleTable
 		tst.w	d0
 		beq.s	.SampleTableOk
+		nop		; hack to prevent isssue - coni
 	ifdef __DEBUG__
 		; for MD Debugger v.2.5 or above
 		RaiseError "MegaPCM_LoadSampleTable returned %<.b d0>", MPCM_Debugger_LoadSampleTableException
@@ -2100,7 +2101,7 @@ GM_Title:
 		jsr	(BuildSprites).l
 		bsr.w	PaletteFadeIn
 
-;		disable_ints
+		disable_ints
 		locVRAM	ArtTile_Title_Foreground*tile_size
 		lea	(Nem_TitleFg).l,a0 ; load title screen patterns
 		bsr.w	NemDec
@@ -2118,16 +2119,17 @@ GM_Title:
 Tit_LoadText:
 		move.w	(a5)+,(a6)
 		dbf	d1,Tit_LoadText	; load level select font
-		include	"ATOGKTitle/MAIN.asm"	; Code (simply ran by inclusion)
-FinalTitle:
-		bsr.w	ClearPLC	
-		bsr.w	PaletteWhiteOut
+		enable_ints
 		move.b	#0,(v_lastlamp).w ; clear lamppost counter
 		move.w	#0,(v_debuguse).w ; disable debug item placement mode
 		move.w	#0,(f_demo).w	; disable debug mode
 		move.w	#0,(v_unused2).w ; unused variable
 		move.w	#(id_GHZ<<8),(v_zone).w	; set level to GHZ (00)
 		move.w	#0,(v_pcyc_time).w ; disable palette cycling
+		include	"ATOGKTitle/MAIN.asm"	; Code (simply ran by inclusion)
+FinalTitle:
+		bsr.w	PaletteWhiteOut
+		bsr.w	ClearPLC	
 		bsr.w	LevelSizeLoad
 		bsr.w	DeformLayers
 		lea	(v_16x16).w,a1
@@ -2138,7 +2140,6 @@ FinalTitle:
 		lea	(v_256x256).l,a1
 		bsr.w	KosDec
 		bsr.w	LevelLayoutLoad
-		bsr.w	PaletteFadeOut
 		bsr.w	ClearScreen
 		lea	(vdp_control_port).l,a5
 		lea	(vdp_data_port).l,a6
@@ -2200,7 +2201,7 @@ FinalTitle:
 		move.w	#0,(v_title_dcount).w
 		move.w	#0,(v_title_ccount).w
 		enable_display
-		bsr.w	PaletteFadeIn
+		bsr.w	PaletteWhiteIn
 
 ; ---------------------------------------------------------------------------
 ; Title screen main loop and cheat checks
@@ -6067,7 +6068,7 @@ Map_Bomb:	include	"_maps/Bomb Enemy.asm"
 
 		include	"_incObj/60 Orbinaut.asm"
 		include	"_anim/Orbinaut.asm"
-Map_Orb:	include	"_maps/Orbinaut.asm"
+Map_Orb:include	"_maps/Orbinaut.asm"
 
 		include	"_incObj/16 Harpoon.asm"
 		include	"_anim/Harpoon.asm"
