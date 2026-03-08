@@ -50,7 +50,7 @@ sonicAniFrame = objoff_32		; Sonic's current animation number
 		move.b	#$E,obHeight(a1)
 		move.b	#7,obWidth(a1)
 		move.b	#id_Roll,obAnim(a1) ; make Sonic roll
-		move.w	#-$300,obVelY(a1) ; rebound Sonic
+		move.w	#-$c00,obVelY(a1) ; rebound Sonic
 		bset	#1,obStatus(a1)
 		bclr	#3,obStatus(a1)
 		move.b	#2,obRoutine(a1)
@@ -77,7 +77,7 @@ sonicAniFrame = objoff_32		; Sonic's current animation number
 		move.w	Smab_Scores(pc,d2.w),d0
 		cmpi.w	#$20,(v_itembonus).w ; have 16 blocks been smashed?
 		blo.s	.givepoints	; if not, branch
-		move.w	#1000,d0	; give higher points for 16th block
+		move.w	#9000,d0	; give higher points for 16th block
 		moveq	#10,d2
 
 .givepoints:
