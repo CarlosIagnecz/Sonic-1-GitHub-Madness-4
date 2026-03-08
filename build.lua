@@ -19,16 +19,12 @@ local improved_dac_driver_compression = false
 
 local common = require "build_tools.lua.common"
 
--- Produce PCM and DPCM data.
-common.convert_pcm_files_in_directory("sound/dac/pcm")
-common.convert_dpcm_files_in_directory("sound/dac/dpcm")
-
 -- Build the ROM.
 local compression = improved_dac_driver_compression and "kosinski-optimised" or "kosinski"
-common.build_rom_and_handle_failure("sonic", "s1built", "", "-p=FF -z=0," .. compression .. ",Size_of_DAC_driver_guess,after", false, "https://github.com/sonicretro/s1disasm")
+common.build_rom_and_handle_failure("sonic", "gm4built", "", "-p=FF -z=0," .. compression .. ",Size_of_DAC_driver_guess,after", false, "https://github.com/sonicretro/s1disasm")
 
 -- Buld DEBUG ROM
-message, abort = common.build_rom("sonic", "s1built.debug", "-D __DEBUG__ -OLIST sonic.debug.lst", "-p=FF -z=0," .. compression .. ",Size_of_DAC_driver_guess,after", false, "https://github.com/sonicretro/s1disasm")
+message, abort = common.build_rom("sonic", "gm4built.debug", "-D __DEBUG__ -OLIST sonic.debug.lst", "-p=FF -z=0," .. compression .. ",Size_of_DAC_driver_guess,after", false, "https://github.com/sonicretro/s1disasm")
 
 if message then
     exit_code = false
@@ -43,14 +39,12 @@ local extra_tools = common.find_tools("debug symbol generator", "https://github.
 if not extra_tools then
     os.exit(false)
 end
-os.execute(extra_tools.convsym .. " sonic.lst s1built.bin -input as_lst -range 0 FFFFFF -exclude -filter \"z[A-Z].+\" -a")
-os.execute(extra_tools.convsym .. " sonic.debug.lst s1built.debug.bin -input as_lst -range 0 FFFFFF -exclude -filter \"z[A-Z].+\" -a")
-
-
+os.execute(extra_tools.convsym .. " sonic.lst gm4built.gen -input as_lst -range 0 FFFFFF -exclude -filter \"z[A-Z].+\" -a")
+os.execute(extra_tools.convsym .. " sonic.debug.lst gm4built.debug.gen -input as_lst -range 0 FFFFFF -exclude -filter \"z[A-Z].+\" -a")
 
 -- Correct the ROM's header with a proper checksum and end-of-ROM value.
-common.fix_header("s1built.bin")
-common.fix_header("s1built.debug.bin")
+common.fix_header("gm4built.gen")
+common.fix_header("gm4built.debug.gen")
 
 -- A successful build; we can quit now.
 common.exit()

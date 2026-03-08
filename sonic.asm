@@ -389,8 +389,8 @@ GameInit:
 		dbf	d6,.clearRAM	; clear RAM ($0000-$FDFF)
 		jsr	(InitDMAQueue).l
 		bsr.w	VDPSetupGame
-		bsr.w	DACDriverLoad
 		bsr.w	JoypadInit
+		bsr.w	Init_MegaPCM
 		move.b	#id_Sega,(v_gamemode).w ; set Game Mode to Sega Screen
 
 MainGameLoop:
@@ -522,8 +522,8 @@ VBla_00:
 
 .notPAL:
 		move.w	#1,(f_hbla_pal).w ; set HBlank flag
-		stopZ80
-		waitZ80
+		
+		
 		tst.b	(f_wtr_state).w	; is water above top of screen?
 		bne.s	.waterabove 	; if yes, branch
 
@@ -535,7 +535,7 @@ VBla_00:
 
 .waterbelow:
 		move.w	(v_hbla_hreg).w,(a5)
-		startZ80
+		
 		bra.w	VBla_Music
 
 ; ===========================================================================
@@ -602,8 +602,8 @@ VBla_10:
 
 ; loc_C6E:
 VBla_08:
-		stopZ80
-		waitZ80
+		
+		
 		bsr.w	ReadJoypads
 		tst.b	(f_wtr_state).w
 		bne.s	.waterabove
@@ -620,7 +620,7 @@ VBla_08:
 		writeVRAM	v_hscrolltablebuffer,vram_hscroll
 		writeVRAM	v_spritetablebuffer,vram_sprites
 		jsr	ProcessDMAQueue(pc)
-		startZ80
+		
 		movem.l	(v_screenposx).w,d0-d7
 		movem.l	d0-d7,(v_screenposx_dup).w
 		movem.l	(v_fg_scroll_flags).w,d0-d1
@@ -666,13 +666,13 @@ VBla_UpdateScreen:
 ; ---------------------------------------------------------------------------
 
 VBla_0A:
-		stopZ80
-		waitZ80
+		
+		
 		bsr.w	ReadJoypads
 		writeCRAM	v_palette,0
 		writeVRAM	v_spritetablebuffer,vram_sprites
 		writeVRAM	v_hscrolltablebuffer,vram_hscroll
-		startZ80
+		
 		bsr.w	PalCycle_SS
 		jsr	ProcessDMAQueue(pc)
 		tst.w	(v_generictimer).w	; is there time left on the demo?
@@ -688,8 +688,8 @@ VBla_0A:
 
 VBla_0C:
 VBla_18:
-		stopZ80
-		waitZ80
+		
+		
 		bsr.w	ReadJoypads
 		tst.b	(f_wtr_state).w
 		bne.s	.waterabove
@@ -705,7 +705,7 @@ VBla_18:
 		writeVRAM	v_hscrolltablebuffer,vram_hscroll
 		writeVRAM	v_spritetablebuffer,vram_sprites
 		jsr	ProcessDMAQueue(pc)
-		startZ80
+		
 		movem.l	(v_screenposx).w,d0-d7
 		movem.l	d0-d7,(v_screenposx_dup).w
 		movem.l	(v_fg_scroll_flags).w,d0-d1
@@ -744,13 +744,13 @@ VBla_12:
 ; ---------------------------------------------------------------------------
 
 VBla_16:
-		stopZ80
-		waitZ80
+		
+		
 		bsr.w	ReadJoypads
 		writeCRAM	v_palette,0
 		writeVRAM	v_spritetablebuffer,vram_sprites
 		writeVRAM	v_hscrolltablebuffer,vram_hscroll
-		startZ80
+		
 		jsr	ProcessDMAQueue(pc)
 		tst.w	(v_generictimer).w
 		beq.w	.end
@@ -769,8 +769,8 @@ VBla_16:
 
 ; sub_106E:
 VBla_StandardTransfers:
-		stopZ80
-		waitZ80
+		
+		
 		bsr.w	ReadJoypads
 
 		tst.b	(f_wtr_state).w			; is the screen completely underwater?
@@ -784,7 +784,7 @@ VBla_StandardTransfers:
 .rest:
 		writeVRAM	v_spritetablebuffer,vram_sprites
 		writeVRAM	v_hscrolltablebuffer,vram_hscroll
-		startZ80
+		
 		rts
 ; End of function VBla_StandardTransfers
 
@@ -831,6 +831,28 @@ HBlank:
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
+; Subroutine to initialise MegaPCM
+; ---------------------------------------------------------------------------
+
+; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+
+Init_MegaPCM
+		jsr	(MegaPCM_LoadDriver).l
+		lea	(SampleTable).l,a0
+		jsr	MegaPCM_LoadSampleTable
+		tst.w	d0
+		beq.s	.SampleTableOk
+	ifdef __DEBUG__
+		; for MD Debugger v.2.5 or above
+		RaiseError "MegaPCM_LoadSampleTable returned %<.b d0>", MPCM_Debugger_LoadSampleTableException
+	else
+		illegal				; I don't know why AS is breaking this
+	endif
+.SampleTableOk:
+		rts
+
+; ===========================================================================
+; ---------------------------------------------------------------------------
 ; Subroutine to initialise joypads
 ; ---------------------------------------------------------------------------
 
@@ -838,13 +860,13 @@ HBlank:
 
 
 JoypadInit:
-		stopZ80
-		waitZ80
+		
+		
 		moveq	#$40,d0
 		move.b	d0,(port_1_control).l		; init port 1 (joypad 1)
 		move.b	d0,(port_2_control).l		; init port 2 (joypad 2)
 		move.b	d0,(expansion_control).l	; init port 3 (expansion/extra)
-		startZ80
+		
 		rts
 ; End of function JoypadInit
 
@@ -1010,30 +1032,6 @@ ClearScreen:
 		ResetDMAQueue
 		rts
 ; End of function ClearScreen
-
-; ---------------------------------------------------------------------------
-; Subroutine to load the DAC driver
-; ---------------------------------------------------------------------------
-
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
-
-; SoundDriverLoad:
-DACDriverLoad:
-		nop	
-		stopZ80
-		deassertZ80Reset
-		lea	(DACDriver).l,a0	; load DAC driver
-		lea	(z80_ram).l,a1		; target Z80 RAM
-		bsr.w	KosDec			; decompress
-		assertZ80Reset
-		nop	
-		nop	
-		nop	
-		nop	
-		deassertZ80Reset
-		startZ80
-		rts
-; End of function DACDriverLoad
 
 		include	"_inc/Queue Sound Routines.asm"
 		include	"_inc/PauseGame.asm"
@@ -2043,7 +2041,7 @@ Sega_WaitPal:
 		bsr.w	QueueSound2	; play "SEGA" sound
 		move.b	#$14,(v_vbla_routine).w
 		bsr.w	WaitForVBla
-		move.w	#30,(v_generictimer).w
+		move.w	#3*60,(v_generictimer).w
 
 Sega_WaitEnd:
 		move.b	#2,(v_vbla_routine).w
@@ -2068,7 +2066,6 @@ GM_Title:
 		bsr.w	ClearPLC
 		bsr.w	PaletteFadeOut
 		disable_ints
-		bsr.w	DACDriverLoad
 		lea	(vdp_control_port).l,a6
 		move.w	#$8004,(a6)	; 8-colour mode
 		move.w	#$8200+(vram_fg>>10),(a6) ; set foreground nametable address
@@ -8309,7 +8306,10 @@ ObjPos_Null:	dc.b $FF, $FF, 0, 0, 0,	0
 			endif
 		endif
 
-SoundDriver:	include "s1.sounddriver.asm"
+		include	"sound\MegaPCM.asm"
+		include	"sound\SampleTable.asm"
+
+SoundDriver:	include "sound\s1.sounddriver.asm"
 
 		include "conimodes\cold brew\GM_ColdBrew.asm"
 		include "conimodes\winxp\GM_NTOSKRNL.asm"

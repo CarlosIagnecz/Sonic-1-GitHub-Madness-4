@@ -821,15 +821,15 @@ end
 
 local function build_rom(input_filename, output_filename, as_arguments, p2bin_arguments, create_header_file, repository)
 	-- Delete old ROM.
-	os.remove(output_filename .. ".prev.bin")
+	os.remove(output_filename .. ".prev.gen")
 
 	-- Backup the most recent ROM.
-	os.rename(output_filename .. ".bin", output_filename .. ".prev.bin")
+	os.rename(output_filename .. ".gen", output_filename .. ".prev.gen")
 
 	local log_filename = input_filename .. ".log"
 
 	-- Assemble the ROM.
-	return assemble_file(input_filename .. ".asm", output_filename .. ".bin", as_arguments, p2bin_arguments, create_header_file, repository)
+	return assemble_file(input_filename .. ".asm", output_filename .. ".gen", as_arguments, p2bin_arguments, create_header_file, repository)
 end
 
 local function build_rom_and_handle_failure(...)
