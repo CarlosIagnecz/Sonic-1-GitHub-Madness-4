@@ -154,13 +154,13 @@ loc_E0:		; Relocated code from Spik_Hurt. REVXB was a nasty hex-edit.
 		dc.l ErrorTrap
 	endif
 		dc.b "SEGA MEGA DRIVE " ; Hardware system ID (Console name)
-		dc.b "(C)SEGA 1991.APR" ; Copyright holder and release date (generally year)
-		dc.b "SONIC THE               HEDGEHOG                " ; Domestic name
-		dc.b "SONIC THE               HEDGEHOG                " ; International name
+		dc.b "SONICGM4 2026.04" ; Copyright holder and release date (generally year)
+		dc.b "I WILL BANISH YOU TO THAT TOWN IN JOHTO         " ; Domestic name
+		dc.b "I WILL BANISH YOU TO THAT TOWN IN JOHTO         " ; International name
 	if Revision=0
 		dc.b "GM 00001009-00"   ; Serial/version number (Rev 0)
 	else
-		dc.b "GM 00004049-01" ; Serial/version number (Rev non-0)
+		dc.b "GM 00042069-25" ; Serial/version number (Rev non-0)
 	endif
 Checksum:
 	if Revision=0

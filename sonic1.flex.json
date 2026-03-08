@@ -1,7 +1,7 @@
 {
     "Flex": 2,
     "name": "Sonic 1",
-    "node": "da472ab9-f363-45e6-8ee3-a83fd70d6d9c",
+    "node": "d16c72f2-5b76-4241-a995-360955212800",
     "objects": [
         {
             "name": "Common",
@@ -308,7 +308,7 @@
                 }
             ],
             "isDirectory": true,
-            "expanded": true,
+            "expanded": false,
             "uuid": "14da472a-b9f3-4355-a6ce-e3a83fd70d6d"
         },
         {
@@ -2814,6 +2814,31 @@
             "isDirectory": true,
             "expanded": false,
             "uuid": "6c6337c4-6aa9-448b-b085-fe2f6400cd25"
+        },
+        {
+            "format": "Sonic 1.js",
+            "name": "Credits Text",
+            "palettes": [
+                {
+                    "path": "palette\\Sonic.bin",
+                    "length": 1
+                }
+            ],
+            "art": {
+                "path": "artnem\\Ending - Credits.nem",
+                "compression": "Nemesis",
+                "offset": 0
+            },
+            "mappings": {
+                "path": "_maps\\Credits.asm",
+                "label": ""
+            },
+            "dplcs": {
+                "enabled": false,
+                "path": "",
+                "label": ""
+            },
+            "uuid": "d16c72f2-5b76-4241-a995-360955212800"
         }
     ]
 }
