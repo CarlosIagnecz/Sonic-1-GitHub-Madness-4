@@ -17,11 +17,11 @@ Revision = 1
 ; 	| If 2, build the hacked version from Sonic Mega Collection, dubbed REVXB,
 ;	|       which (sloppily) fixes the infamous "spike bug" -- not recommended
 
-FixBugs = 0
+FixBugs = 1
 ;	| If 1, enables various bugfixes across the game and sound driver
 ;	| See also FixMusicAndSFXDataBugs
 
-AllOptimizations = 0
+AllOptimizations = 1
 ;	| If 1, enables all optimizations
 SkipChecksumCheck = 0|AllOptimizations
 ;	| If 1, disables the slow bootup checksum calculation
@@ -2475,7 +2475,8 @@ Tit_EnterLevelSelect:
 		move.w	#plane_size_64x32/4-1,d1 ; write full screen
 .LevSelClearBG:	move.l	d0,(a6)			; clear background plane
 		dbf	d1,.LevSelClearBG	; loop until plane is fully cleared
-
+		move.b	#bgm_NewBarkTown,d0
+		bsr.w	QueueSound2	; play title screen music
 		bsr.w	LevSelTextLoad		; load level select text before entering main loop
 
 ; ---------------------------------------------------------------------------
