@@ -1978,6 +1978,7 @@ Pal_Ending:		bincludeEndMarker	"palette/Ending.bin"
 Pal_SplashPal:	bincludeEndMarker	"eurosega\pal.bin"
 Pal_ColdBrew:	bincludeEndMarker	"conimodes\cold brew\palette.bin"
 Pal_ColdBrewG:	bincludeEndMarker	"conimodes\cold brew\palette grayscale.bin"
+Pal_TryAgain:	bincludeEndMarker	"palette/TryAgain.bin"
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to wait for VBlank routines to complete
@@ -4342,10 +4343,15 @@ TryAgainEnd:
 
 		moveq	#plcid_TryAgain,d0
 		bsr.w	QuickPLC	; load "TRY AGAIN" or "END" patterns
+		lea	(v_ram_start).l,a1
+		lea	(Eni_TheIdiotBros).l,a0 ; load mappings for Japanese credits
+		move.w	#make_art_tile(ArtTile_Try_Again_Eggman,0,FALSE),d0
+		bsr.w	EniDec
 
+		copyTilemap	v_ram_start,vram_fg+$310,17,12
 		clearRAM v_palette_fading
 
-		moveq	#palid_Ending,d0
+		moveq	#palid_TryAgain,d0
 		bsr.w	PalLoad_Fade	; load ending palette
 		clr.w	(v_palette_fading+$40).w
 		move.b	#id_EndEggman,(v_endeggman).w ; load Eggman object
@@ -8031,7 +8037,8 @@ Nem_CreditText:	binclude	"artnem/Ending - Credits.nem"
 		even
 Nem_EndStH:	binclude	"artnem/Ending - StH Logo.nem"
 		even
-
+Eni_TheIdiotBros:	binclude	"tilemaps/Idiots.eni"
+		even
 		; AngleMap starts at $62900 in all revisions, which amounts
 		; to $104 bytes of padding for rev00 and $40 for rev01/rev02.
 		; From a technical standpoint, this padding serves no purpose.
