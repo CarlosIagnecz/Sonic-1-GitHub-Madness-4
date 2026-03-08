@@ -79,9 +79,9 @@ BGM_1UP_PSG3:
 	smpsStop
 
 BGM_1UP_DAC:
-	dc.b	dKick, $03, $03, dKick, $12, dKick, $06
-	dc.b	dSnare, dKick, $0C, $06, dHiTimpani, dLowTimpani
-	dc.b	dHiTimpani, dLowTimpani, dHiTimpani, $0C, nRst, $12
+	dc.b	dChunkyKick, $03, $03, dPokeKickCrashHi, $12, dChunkyKick, $06
+	dc.b	dPokeSnare, dChunkyKick, $0C, $06, dPokeHiTimpani, dPokeMidTimpani
+	dc.b	dPokeHiTimpani, dPokeMidTimpani, dPokeHiTimpani, $0C, nRst, $12
 	smpsFade
 	smpsStop
 

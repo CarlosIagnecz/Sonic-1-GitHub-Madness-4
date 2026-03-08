@@ -5,7 +5,6 @@ SonLVL INI Files/SonLVL.log
 
 # Misc. compiler output.
 sonic.lst
-sonic.debug.lst
 sonic.log
 sonic.p
 sonic.debug.lst

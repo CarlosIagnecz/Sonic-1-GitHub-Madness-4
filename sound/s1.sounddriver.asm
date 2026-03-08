@@ -21,6 +21,14 @@ SMPS_SPECIAL_SFX_PSG_TRACK_COUNT = (SMPS_RAM.v_spcsfx_psg_tracks_end-SMPS_RAM.v_
 pcmLoopCounterBase function sampleRate,baseCycles, 1+(Z80_Clock/(sampleRate)-(baseCycles)+(13/2))/13
 pcmLoopCounter function sampleRate, pcmLoopCounterBase(sampleRate,90) ; 90 is the number of cycles zPlaySEGAPCMLoop takes to deliver one sample.
 dpcmLoopCounter function sampleRate, pcmLoopCounterBase(sampleRate,301/2) ; 301 is the number of cycles zPlayPCMLoop takes to deliver two samples.
+
+; ---------------------------------------------------------------------------
+; SMPS2ASM - A collection of macros that make SMPS's bytecode human-readable.
+; ---------------------------------------------------------------------------
+FixMusicAndSFXDataBugs = FixBugs
+SonicDriverVer = 1 ; Tell SMPS2ASM that we're using Sonic 1's driver.
+		include "sound/_smps2asm_inc.asm"
+
 ; ---------------------------------------------------------------------------
 ; Go_SoundTypes:
 Go_SoundPriorities:	dc.l SoundPriorities
@@ -741,7 +749,7 @@ ptr_flgend
 ; ---------------------------------------------------------------------------
 ; Sound_E1: PlaySega:
 PlaySegaSound:
-		moveq	#$FFFFFF8C,d0	; I feel like this should be a constant?
+		move.b	#dSega,d0	; I feel like this should be a constant?
 		jmp	MegaPCM_PlaySample
 
 ; ===========================================================================
@@ -2696,13 +2704,6 @@ cfOpF9:
 		move.b	#$8C,d0		; D1L/RR of Operator 4
 		move.b	#$F,d1		; Loaded with fixed value (max RR, 1TL)
 		bra.w	WriteFMI
-
-; ---------------------------------------------------------------------------
-; SMPS2ASM - A collection of macros that make SMPS's bytecode human-readable.
-; ---------------------------------------------------------------------------
-FixMusicAndSFXDataBugs = FixBugs
-SonicDriverVer = 1 ; Tell SMPS2ASM that we're using Sonic 1's driver.
-		include "sound/_smps2asm_inc.asm"
 
 ; ---------------------------------------------------------------------------
 ; Music data
